@@ -32,14 +32,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     mJoystick = new Joystick(0);
 
-    // Use either initializeTwoMotorDriveGroups or initializeOneMotorSides
-    initializeTwoMotorDriveGroups();
-  }
-
-  /**
-   * Use this method if there are two motors on each side.
-   */
-  private void initializeTwoMotorDriveGroups() {
     var leftOne = new PWMVictorSPX(0);
     var leftTwo = new PWMVictorSPX(2);
     var rightOne = new PWMVictorSPX(1);
@@ -49,15 +41,6 @@ public class Robot extends TimedRobot {
     var rightGroup = new SpeedControllerGroup(rightOne, rightTwo);
 
     mDrive = new DifferentialDrive(leftGroup, rightGroup);
-  }
-
-  /**
-   * Use this method if there is one motor on each side.
-   */
-  private void initializeOneMotorSides() {
-    var left = new PWMVictorSPX(0);
-    var right = new PWMVictorSPX(1);    
-    mDrive = new DifferentialDrive(left, right);
   }
 
   /**
@@ -108,7 +91,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     mDrive.arcadeDrive(-mJoystick.getY(), mJoystick.getZ());
 
-    // You can use tankdrive instead if you have two joysticks or an xbox controller
+    // You can use tank drive instead if you have two joysticks or an xbox controller
   }
 
   /**
