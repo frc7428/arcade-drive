@@ -9,9 +9,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
-//import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-//import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -50,35 +48,15 @@ public class Robot extends TimedRobot {
     leftFront = new WPI_VictorSPX(CAN_LEFT_FRONT_MOTOR_CONTROLLER);
     leftRear = new WPI_VictorSPX(CAN_LEFT_REAR_MOTOR_CONTROLLER);
     left = new SpeedControllerGroup(leftFront, leftRear);
-    right = new SpeedControllerGroup(rightFront, rightRear);
+
     rightFront = new WPI_VictorSPX(CAN_RIGHT_FRONT_MOTOR_CONTROLLER);
     rightRear = new WPI_VictorSPX(CAN_RIGHT_REAR_MOTOR_CONTROLLER);
-    mDrive = new DifferentialDrive(left, right);
-   
+    right = new SpeedControllerGroup(rightFront, rightRear);
 
-    // Use either initializeTwoMotorDriveGroups or initializeOneMotorSides
-    //initializeTwoMotorDriveGroups();
+    mDrive = new DifferentialDrive(left, right);
   }
 
-  /**
-   * Use this method if there are two motors on each side.
-   */
-  //private void initializeTwoMotorDriveGroups() {
-    //var leftOne = new PWMVictorSPX(0);
-    //var leftTwo = new PWMVictorSPX(2);
-    //var rightOne = new PWMVictorSPX(1);
-    //var rightTwo = new PWMVictorSPX(3);
 
-    //var leftGroup = new SpeedControllerGroup(leftOne, leftTwo);
-    //var rightGroup = new SpeedControllerGroup(rightOne, rightTwo);
-
-    //mDrive = new DifferentialDrive(leftGroup, rightGroup);
-  
-
-  /**
-   * Use this method if there is one motor on each side.
-   */
-  
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -126,9 +104,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    mDrive.arcadeDrive(mJoystick.getRawAxis(0), -mJoystick.getRawAxis(1));
-    
-//       You can use tankdrive instead if you have two joysticks or an xbox controller
+    mDrive.arcadeDrive(-mJoystick.getY(), mJoystick.getZ());
   }
 
   /**
